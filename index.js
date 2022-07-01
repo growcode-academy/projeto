@@ -20,8 +20,14 @@ server.post("/users", function(req, res) {
 
 
 server.get("/users", function(req, res) {
-    res.status(404)
-    res.send("NOT FOUND")
+    database("users").
+        then(function(data) {
+            res.json(data)
+        }).
+        catch(function(error) {
+            res.status(500)
+            res.json(error)
+        })
 })
 
 server.get("/users/:id", function(req, res) {
