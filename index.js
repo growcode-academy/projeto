@@ -1,10 +1,21 @@
 const express = require("express")
 const server  = express()
 
+const database = require("./database")
+
+server.use(express.json());
 
 server.post("/users", function(req, res) {
-    res.status(404)
-    res.send("NOT FOUND")
+    database("users").
+        insert(req.body).
+        then(function(data) {
+            res.status(201)
+            res.json(data)
+        }).
+        catch(function(error) {
+            res.status(500)
+            res.json(error)
+        })
 })
 
 
