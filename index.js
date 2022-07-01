@@ -1,9 +1,5 @@
-const express = require("express")
-const server  = express()
-
+const server = require("./server")
 const database = require("./database")
-
-server.use(express.json());
 
 server.post("/users", function(req, res) {
     database("users").
